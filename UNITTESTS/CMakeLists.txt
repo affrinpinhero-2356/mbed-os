@@ -3,9 +3,22 @@
 
 set(MBED_PATH ${CMAKE_CURRENT_SOURCE_DIR}/.. CACHE INTERNAL "")
 
+macro(use_cxx14)
+    if (CMAKE_VERSION VERSION_LESS 3.1)
+        if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
+        endif()
+    else()
+        set(CMAKE_CXX_STANDARD 14)
+        set(CMAKE_CXX_STANDARD_REQUIRED ON)
+    endif()
+endmacro()
+
+use_cxx14()
+
 # Setup c++ standard
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+#set(CMAKE_CXX_STANDARD 14)
+#set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if (MINGW)
     # enable PRIx formatting globally
